@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
@@ -37,7 +35,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            implementation(libs.compose.swift.bridge)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -108,7 +105,7 @@ tasks.withType<com.google.devtools.ksp.gradle.KspTaskNative>().configureEach {
 // support for generating ksp code in commonCode
 // see https://github.com/google/ksp/issues/567
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
+    if (name == "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
 }
